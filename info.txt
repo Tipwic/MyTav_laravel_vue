@@ -1,0 +1,28 @@
+base :
+    git clone https://github.com/m1nyasha/laravel-8-and-vuejs.git
+    composer update && npm i && npm audit fix
+    set up bd && .env && php artisan migrate
+    npm run watch
+    php artisan serve
+
+
+source :
+    auth : https://dev.to/jasminetracey/laravel-8-with-bootstrap-livewire-and-fortify-5d33
+    server mail : https://mailtrap.io/
+    recaptcha : https://www.tutsmake.com/laravel-8-google-recaptcha-v3-example/
+    login google : https://www.itsolutionstuff.com/post/laravel-6-socialite-login-with-google-gmail-accountexample.html
+
+    crud vue : https://www.codecheef.org/article/vue-laravel-crud-example-with-vue-router-and-sweet-alert
+
+
+think of declare in app.php :  App\Providers\FortifyServiceProvider::class
+
+//migration issue in app/provider/app.php
+Schema::defaultStringLength(191);
+
+//display query executed in terminal
+if($this->app->environment()=== 'local'){
+    DB::listen(function (QueryExecuted $query){
+        file_put_contents('php://stdout',"\e[34m{$query->sql}\t\e[37m".json_encode($query->bindings)."\t\e[32m($query->time)ms\e[On\n");
+    });
+}
