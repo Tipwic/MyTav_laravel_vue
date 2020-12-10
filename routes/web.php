@@ -17,9 +17,19 @@ use Illuminate\Support\Facades\Route;
 //    return view('index');
 //});
 
-Route::get('/{any}', function () {
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('home', 'home')->name('home');
+});
+
+
+/*Route::get('/{any}', function () {
     return view('index');
-})->where('any', '.*');
+})->where('any', '.*');*/
 
 //Auth::routes();
 

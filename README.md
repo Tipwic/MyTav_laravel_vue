@@ -3,24 +3,31 @@
 
 MyTav is a social network for RPG player designed with laravel and vueJs 
 
+## Features
+
+```
+Auth : 
+    fortify => https://laravel.com/docs/8.x/fortify
+```
+
 ## Installation
 
 ```
 Run this commands:
 
-- <b><i>composer update</i></b>
-- <b><i>npm install</i></b>
+- composer update
+- npm install
 
-- <b><i>be sure to set up your .env file</i></b>
-- <b><i>php artisan migrate</i></b>
-- <b><i>npm install</i></b>
+- be sure to set up your .env file
+- php artisan migrate
+- npm install
 ```
 
 ## Run application
 
 ```
-- <b><i>npm run watch</i></b> (watcher for update public/js/app.js)
-- <b><i>php artisan serve</i></b>  (start laravel local server)
+- npm run watch (watcher for update public/js/app.js)
+- php artisan serve  (start laravel local server)
 ```
 
 ## Contributing
