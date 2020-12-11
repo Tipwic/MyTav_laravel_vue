@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,18 +19,22 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages\welcome');
+});
+
+Route::get('welcome', function () {
+    return view('pages\welcome');
 });
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('home', 'home')->name('home');
+    Route::get('home', [HomeController::class, 'index'])->name('home');
 });
 
+Route::any('{query}',
+    function() { return redirect('/home'); })
+    ->where('query', '.*');
 
-/*Route::get('/{any}', function () {
-    return view('index');
-})->where('any', '.*');*/
 
 //Auth::routes();
 

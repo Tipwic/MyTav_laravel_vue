@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\GuildController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\v1\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +19,6 @@ use App\Http\Controllers\Api\v1\PostsController;
  *
  */
 
-Route::resource('posts', PostsController::class);
+
+Route::apiResource('guilds', GuildController::class);
+Route::apiResource('articles', ArticleController::class);

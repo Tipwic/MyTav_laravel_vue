@@ -4,9 +4,9 @@ import Vue from 'vue';
 Vue.use(vueRouter);
 
 import Index from "./views/Index";
-import Blog from "./views/Blog";
-import Post from "./views/Post";
-import CreatePost from "./views/CreatePost";
+import Guilds_list from "./views/Guilds_list";
+import Guild from "./views/Guild";
+//import CreatePost from "./views/CreatePost";
 
 const routes = [
     {
@@ -14,16 +14,16 @@ const routes = [
         component: Index
     },
     {
-        path: "/blog",
-        component: Blog
+        path: "/guilds",
+        component: Guilds_list
     },
     {
-        path: "/post/:id",
-        component: Post
+        path: "/guild/:id",
+        component: Guild
     },
-    {
-        path: "/create",
-        component: CreatePost
+   {
+        path: "/*",
+        component: Index
     }
 ];
 

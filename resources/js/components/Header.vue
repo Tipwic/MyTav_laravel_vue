@@ -1,41 +1,62 @@
 <template>
-    <nav class="uk-navbar-container" uk-navbar>
-        <div class="uk-navbar-center">
+  <div>
+    <nav
+      class="uk-margin uk-navbar uk-margin-remove-bottom uk-background-secondary uk-light"
+      uk-navbar=""
+    >
+      <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+          <li>
+            <a
+              class="uk-navbar-toggle"
+              uk-navbar-toggle-icon
+              href="#offcanvas"
+              uk-toggle
+            ></a>
+          </li>
+          <li><router-link to="/">My-taverne</router-link></li>
+          <li><router-link to="/guilds">les Guildes</router-link></li>
+        </ul>
+      </div>
 
-            <ul class="uk-navbar-nav">
-<!--                class="uk-active"-->
-                <li v-for="link in links">
-                    <router-link :to="link.href">{{ link.title }}</router-link>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li>
+            <a uk-icon="user"></a>
+            <div uk-dropdown="pos: top-right">
+              <ul class="uk-nav uk-dropdown-nav">
+                <li class="uk-active"><a href="#">settings</a></li>
+                <li>
+                  <a
+                    href="#"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"
+                    >logout</a
+                  >
                 </li>
-            </ul>
-
-        </div>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
     </nav>
+  </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                links: [
-                    {
-                        title: "Главная",
-                        href: "/"
-                    },
-                    {
-                        title: "Блог",
-                        href: "/blog"
-                    },
-                    {
-                        title: "Создать пост",
-                        href: "/create"
-                    }
-                ]
-            }
-        }
-    }
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("tweetr-token");
+
+      this.$router.push("/logout");
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
