@@ -1,14 +1,7 @@
 <template>
-  <div class="uk-card uk-card-default uk-width-1-2@m">
+  <div class="uk-card uk-card-default">
     <div class="uk-card-header">
-      <div class="uk-grid-small uk-flex-middle" uk-grid>
-        <div class="uk-width-expand">
-          <h3 class="uk-card-title uk-margin-remove-bottom">test</h3>
-          <p class="uk-text-meta uk-margin-remove-top">
-            <time datetime="2016-04-01T19:00">test</time>
-          </p>
-        </div>
-      </div>
+      test
     </div>
     <div class="uk-card-body">
       <p>test</p>

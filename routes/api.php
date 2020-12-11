@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\API\AvatarController;
 use App\Http\Controllers\Api\GuildController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('guilds', GuildController::class);
 Route::apiResource('articles', ArticleController::class);
+Route::apiResource('avatars', AvatarController::class);

@@ -1,12 +1,18 @@
 <template>
   <div>
-    <spin v-if="loading"></spin>
-    <div style="display: flex; flex-wrap: wrap" v-else>
-      <GuildCardList
-        v-for="guild in guilds"
-        v-bind:key="guild.id"
-        :guild="guild"
-      />
+ 
+    <div
+      class="uk-grid-match uk-child-width-expand@s uk-text-center"
+      uk-grid
+      uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 100; repeat: true"
+    >
+      <div>
+        <GuildCardList
+          v-for="guild in guilds"
+          v-bind:key="guild.id"
+          :guild="guild"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -52,7 +52,8 @@ class GuildController extends Controller
      */
     public function show(Guild $guild)
     {
-        return response(['guild' => new GuildResource($guild), 'message' => 'Retrieved successfully'], 200);
+        return $guild;
+        //return response(['guild' => new GuildResource($guild), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
