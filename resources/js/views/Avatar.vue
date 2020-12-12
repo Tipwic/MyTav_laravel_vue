@@ -2,14 +2,21 @@
   <div>
     <spin v-if="loading" />
     <div v-else class="uk-position-center uk-overlay uk-overlay-default">
-      Avatar {{ avatar }}
+      Avatar {{ avatar.name }}
     </div>
+    <button
+        class="uk-button uk-button-primary uk-width-1-1 uk-button-small"
+        v-on:click="OpenAvatarForm"
+      >
+        Modifier Avatar
+      </button>
   </div>
 </template>
 
 <script>
-import Spin from "../components/Spin";
+import Spin from "../components/utils/Spin";
 import axios from "axios";
+import { bus } from "../app";
 
 export default {
   components: { Spin },
@@ -17,9 +24,10 @@ export default {
   props: {},
 
   data: () => ({
-    avatar: Number,
+    avatar: {},
     loading: true,
     error: false,
+    formAction: String,
   }),
 
   mounted() {
@@ -33,36 +41,27 @@ export default {
   },
 
   methods: {
-    store() {
-      this.loading = true;
-      axios
-        .post("/api/posts", this.form, {
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-        .then((res) => {
-          if (res.data.status) {
-            this.$router.push("/post/" + res.data.post.id);
-          } else {
-            setTimeout(() => {
-              this.loading = false;
-            }, 300);
-            this.error = true;
-          }
-        });
-    },
-
     loadAvatar() {
       (this.loading = true),
         axios.get("/api/avatars/" + this.$route.params.id).then((res) => {
-          this.avatar = res.data;
+          console.log(res)
+          this.avatar = res.data.avatar;
+          this.onLoadedAvatar();
           this.loading = false;
         });
     },
+
+    OpenAvatarForm() {
+      var data = {
+        action: "update",
+        category: "avatar",
+        form: this.avatar,
+      };
+      bus.$emit("OpenAvatarForm", data);
+    },
+
     onLoadedAvatar() {
-      this.$emit("onLoaded", this.avatar);
-      this.$emit("custom-event-name", { message: "My custom message" });
+      bus.$emit("onLoadedAvatar", this.avatar);
     },
   },
 };

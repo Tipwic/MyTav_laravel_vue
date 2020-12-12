@@ -1,19 +1,24 @@
 <template>
+<div >
+          <a class="ellipsis">{{ avatar.name }}</a>
+</div>
 
-          <a>{{ avatar }}</a>
 
 </template>
 
 <script>
 export default {
   props: {
-    avatar: Number,
+    avatar:{},
   },
   mounted() {
-
+console.log(this.avatar)
   },
 };
 </script>
 
 <style scoped>
+.ellipsis{
+  text-overflow: ellipsis;
+}
 </style>

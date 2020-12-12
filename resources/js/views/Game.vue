@@ -17,18 +17,18 @@ export default {
   props: {},
 
   data: () => ({
-    guild: Number,
+    game: Number,
     loading: true,
     error: false,
   }),
 
   mounted() {
-    this.loadGuild();
+    this.loadGame();
   },
 
   watch: {
     $route(to, from) {
-      this.loadGuild();
+      this.loadGame();
     },
   },
 
@@ -36,14 +36,14 @@ export default {
     store() {
       this.loading = true;
       axios
-        .post("/api/guilds", this.form, {
+        .post("/api/games", this.form, {
           headers: {
             "Content-type": "application/json",
           },
         })
         .then((res) => {
           if (res.data.status) {
-            this.$router.push("/guild/" + res.data.post.id);
+            this.$router.push("/game/" + res.data.post.id);
           } else {
             setTimeout(() => {
               this.loading = false;
@@ -53,15 +53,15 @@ export default {
         });
     },
 
-    loadGuild() {
+    loadGame() {
       (this.loading = true),
-        axios.get("/api/guilds/" + this.$route.params.id).then((res) => {
-          this.guild = res.data;
+        axios.get("/api/avatars/" + this.$route.params.id).then((res) => {
+          this.avatar = res.data;
           this.loading = false;
         });
     },
-    onLoadedGuild() {
-      this.$emit("onLoaded", this.guild);
+    onLoadedGame() {
+      this.$emit("onLoaded", this.game);
     },
   },
 };

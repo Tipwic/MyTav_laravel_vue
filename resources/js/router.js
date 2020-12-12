@@ -3,20 +3,20 @@ import Vue from 'vue';
 
 Vue.use(vueRouter);
 
-import Index from "./views/Index";
-import Guilds_list from "./views/Guilds_list";
+import Home from "./views/Home";
+import Comunity from "./views/Comunity";
 import Guild from "./views/Guild";
 import Avatar from "./views/Avatar";
-//import CreatePost from "./views/CreatePost";
+import Game from "./views/Game";
 
 const routes = [
     {
         path: "/",
-        component: Index
+        component: Home
     },
     {
-        path: "/guilds",
-        component: Guilds_list
+        path: "/Comunity",
+        component: Comunity
     },
     {
         path: "/guild/:id",
@@ -26,9 +26,13 @@ const routes = [
         path: "/avatar/:id",
         component: Avatar
     },
+    {
+        path: "/game/:id",
+        component: Game
+    },
    {
         path: "/*",
-        component: Index
+        component: Home
     }
 ];
 

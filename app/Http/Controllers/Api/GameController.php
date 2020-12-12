@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AvatarResource;
-use App\Models\Avatar;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class AvatarController extends Controller
+class GameController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,7 @@ class AvatarController extends Controller
      */
     public function index()
     {
-        $avatars = Avatar::all();
-        return response([ 'avatars' => AvatarResource::collection($avatars), 'message' => 'Retrieved successfully'], 200);
+        //
     }
 
     /**
@@ -29,18 +25,7 @@ class AvatarController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        $validator = Validator::make($data, [
-            'name' => 'required|max:255'
-        ]);
-
-        if ($validator->fails()) {
-            return response(['error' => $validator->errors(), 'Validation Error']);
-        }
-
-        $avatar = Avatar::create($data);
-        return response(['avatar' => new AvatarResource($avatar), 'message' => 'Created successfully'], 201);
+        //
     }
 
     /**
@@ -51,8 +36,7 @@ class AvatarController extends Controller
      */
     public function show($id)
     {
-        $avatar = Avatar::findOrFail($id);
-        return response(['avatar' => new AvatarResource($avatar), 'message' => 'Retrieved successfully'], 200);
+        //
     }
 
     /**

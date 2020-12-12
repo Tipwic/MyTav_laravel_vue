@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Spin from "../components/Spin";
+import Spin from "../components/utils/Spin";
 import axios from "axios";
 import GuildCardList from "../components/Guild/GuildCardList";
 export default {

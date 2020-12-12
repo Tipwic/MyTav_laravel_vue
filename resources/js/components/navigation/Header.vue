@@ -15,7 +15,7 @@
             ></a>
           </li>
           <li><router-link to="/">My-taverne</router-link></li>
-          <li><router-link to="/guilds">les Guildes</router-link></li>
+          <li><router-link to="/comunity">les Guildes</router-link></li>
         </ul>
       </div>
 

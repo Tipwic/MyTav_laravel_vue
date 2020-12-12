@@ -19,8 +19,9 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('v-header', require('./components/Header.vue').default);
-Vue.component('v-aside_nav', require('./components/aside_nav.vue').default);
+Vue.component('v-header', require('./components/navigation/Header.vue').default);
+Vue.component('v-aside_nav', require('./components/navigation/aside_nav.vue').default);
+Vue.component('v-modal', require('./components/navigation/modal.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,9 +30,9 @@ Vue.component('v-aside_nav', require('./components/aside_nav.vue').default);
  */
 
 import router from "./router";
+export const bus = new Vue();
 
 const app = new Vue({
     el: '#app',
     router,
-    
 });
