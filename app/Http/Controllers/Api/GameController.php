@@ -3,10 +3,21 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\GameRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
+
+    private $r;
+    private $auth;
+
+    public function __construct (Auth $auth, GameRepository $gameRepository){
+        $this->r = $gameRepository;
+        $this->auth = $auth;
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -13,20 +13,20 @@
 
     <!-- token -->
     <script type="text/javascript">
-        window.csrf_token = "{{ csrf_token() }}"
+        window.csrf_token = "{{ csrf_token() }}";
+        window.CurrentUserId = "{{ Auth::user()->id }}"
     </script>
 
 </head>
 
 <body>
     <div id="app">
-
         <v-header></v-header>
         <v-aside_nav></v-aside_nav>
         <v-modal></v-modal>
         <main uk-height-viewport="offset-top: true; offset-bottom: true">
 
-            <div class="uk-container">
+            <div class="uk-container uk-margin-small-top">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>

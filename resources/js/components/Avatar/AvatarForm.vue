@@ -1,38 +1,52 @@
 <template>
   <div>
     <spin v-if="loading" />
+    <ErrorForm v-if="error"  :error="error" :data="dataError"/>
 
-    <div class="uk-margin">
-      <div class="uk-inline uk-width-1-1">
-        <span class="uk-form-icon" uk-icon="icon: user"></span>
-        <input
-          id="name"
-          class="uk-input uk-form-large"
-          type="text"
-          placeholder="Pseudo"
-          v-model="form.name"
-          required
-        />
+    <div v-if="action != 'delete'">
+      <div class="uk-margin">
+        <div class="uk-inline uk-width-1-1">
+          <span class="uk-form-icon" uk-icon="icon: user"></span>
+          <input
+            id="name"
+            class="uk-input uk-form-large"
+            type="text"
+            placeholder="Pseudo"
+            v-model="form.name"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <button
+          v-if="action == 'create'"
+          type="submit"
+          class="uk-button uk-button-primary uk-button-large uk-width-1-1"
+          v-on:click="store"
+        >
+          Créer
+        </button>
+
+        <button
+          v-if="action == 'update'"
+          type="submit"
+          class="uk-button uk-button-primary uk-button-large uk-width-1-1"
+          v-on:click="update"
+        >
+          Modifier
+        </button>
       </div>
     </div>
 
-    <div class="uk-margin">
+    <!-- delete message -->
+    <div v-else>
       <button
-        v-if="action == 'create'"
         type="submit"
         class="uk-button uk-button-primary uk-button-large uk-width-1-1"
-        v-on:click="store"
+        v-on:click="deleteAvatar"
       >
-        Créer
-      </button>
-
-      <button
-        v-if="action == 'update'"
-        type="submit"
-        class="uk-button uk-button-primary uk-button-large uk-width-1-1"
-        v-on:click="update"
-      >
-        Modifier
+        supprimer ??
       </button>
     </div>
   </div>
@@ -40,11 +54,12 @@
 
 <script>
 import Spin from "../utils/Spin";
+import ErrorForm from "../utils/ErrorForm";
 import axios from "axios";
 import { bus } from "../../app";
 
 export default {
-  components: { Spin },
+  components: { Spin, ErrorForm },
   props: {
     form: Object,
     action: String,
@@ -52,6 +67,7 @@ export default {
   data: () => ({
     loading: false,
     error: false,
+    dataError: {},
   }),
 
   created() {},
@@ -60,7 +76,7 @@ export default {
     store() {
       if (!this.loading) {
         this.loading = true;
-        console.log(this.form);
+        this.error = false;
         axios
           .post("/api/avatars", this.form, {
             headers: {
@@ -68,14 +84,16 @@ export default {
             },
           })
           .then((res) => {
-            if (res.data) {
+            if (res.data.avatar) {
               bus.$emit("closeModal");
-              bus.$emit("openSideNav");
-              setTimeout(function () {
-                bus.$emit("onCreatedAvatar", res.data.avatar);
-              }, 1500);
-            } else {
+              bus.$emit("onCreatedAvatar", res.data.avatar);
+              UIkit.notification(
+                "<span uk-icon='icon: check'></span>" + res.data.message,
+                "success"
+              );
+            } else{
               this.error = true;
+              this.dataError = res.data.error ? res.data.error : {};            
             }
             this.loading = false;
           });
@@ -86,17 +104,48 @@ export default {
       if (!this.loading) {
         this.loading = true;
         axios
-          .put("/api/avatars", this.form, {
+          .put("/api/avatars/" + this.form.id, this.form, {
             headers: {
               "Content-type": "application/json",
             },
           })
           .then((res) => {
-            console.log(res);
-            if (res.data) {
+            if (res.data.avatar) {
+              bus.$emit("closeModal");
               bus.$emit("onUpdatedAvatar", res.data.avatar);
+              UIkit.notification(
+                "<span uk-icon='icon: check'></span>" + res.data.message,
+                "success"
+              );
             } else {
               this.error = true;
+              this.dataError = res.data.error ? res.data.error : {};      
+            }
+            this.loading = false;
+          });
+      }
+    },
+
+    deleteAvatar() {
+      if (!this.loading) {
+        this.loading = true;
+        axios
+          .delete("/api/avatars/" + this.form.id, {
+            headers: {
+              "Content-type": "application/json",
+            },
+          })
+          .then((res) => {
+            if (res.data) {
+              bus.$emit("closeModal");
+              bus.$emit("onDeletedAvatar", this.form.id);
+              UIkit.notification(
+                "<span uk-icon='icon: check'></span>" + res.data.message,
+                "success"
+              );
+            } else {
+              this.error = true;
+              this.dataError = res.data.error ? res.data.error : {};      
             }
             this.loading = false;
           });

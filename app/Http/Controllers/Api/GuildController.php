@@ -5,11 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GuildResource;
 use App\Models\Guild;
+use App\Repositories\GuildRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class GuildController extends Controller
 {
+    private $r;
+    private $auth;
+
+    public function __construct (Auth $auth, GuildRepository $guildRepository){
+        $this->r = $guildRepository;
+        $this->auth = $auth;
+    }
     /**
      * Display a listing of the resource.
      *

@@ -16,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        'App\repositories\AvatarRepository';
+        'App\repositories\GameRepository';
+        'App\repositories\GuildrRepository';
     }
 
     /**

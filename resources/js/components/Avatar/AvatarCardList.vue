@@ -12,7 +12,6 @@ export default {
     avatar:{},
   },
   mounted() {
-console.log(this.avatar)
   },
 };
 </script>

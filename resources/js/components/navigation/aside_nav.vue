@@ -55,7 +55,6 @@
           v-for="avatar in avatars"
           v-bind:key="avatar.id"
           v-on:click="updateSelected(avatar)"
-          uk-scrollspy="cls: uk-animation-slide-left; repeat: true"
         >
           <AvtarCardList :avatar="avatar" />
         </li>
@@ -87,35 +86,57 @@ export default {
     avatarSelected: {},
   }),
   created() {
-    bus.$on("openSideNav", (data) => {this.openCanva()});
-    bus.$on("closeSideNav", (data) => {this.closeCanva()});
+    bus.$on("openSideNav", (data) => {
+      this.openCanva();
+    });
+    bus.$on("closeSideNav", (data) => {
+      this.closeCanva();
+    });
     bus.$on("onCreatedAvatar", (data) => {
-      console.log('create')
-      console.log(data)
-      this.avatars.unshift(data);
-      this.updateSelected(data);
+      this.openCanva();
+      self = this;
+      setTimeout(function () {
+        self.avatars.unshift(data);
+        bus.$emit("noUserAvatar", true);
+        self.updateSelected(data);
+      }, 500);
     });
     bus.$on("onUpdatedAvatar", (data) => {
-      this.updateSelected(data);
+      let i = this.avatars.findIndex((a) => a.id == data.id);
+      if (i > -1) {
+        this.openCanva();
+        this.avatars[i] = data;
+        this.selectCurrent(data);
+      }
     });
-    bus.$on("onDeletedAvatar", (data) => {});
+    bus.$on("onDeletedAvatar", (data) => {
+      this.loadAvatars();
+    });
     bus.$on("onLoadedAvatar", (data) => {
-      this.selectCurrent(data);
+      let i = this.avatars.findIndex((a) => a.id == data.id);
+      if (i > -1) {
+        this.selectCurrent(data);
+      }
     });
   },
   mounted() {
-    this.loadAvatars();
+    this.loadAvatars(true);
   },
   methods: {
-    loadAvatars() {
-      axios.get("/api/avatars").then((res) => {
-        console.log(res);
-        this.avatars = res.data.avatars;
+    loadAvatars(isFirstLoad = false) {
+      axios.get("/api/userAvatar/" + CurrentUserId).then((res) => {
+        this.avatars = [...res.data.avatars];
+        if (this.avatars.length == 0) {
+          this.$router.push("/home").catch((err) => {});
+          bus.$emit("noUserAvatar", true);
+        } else {
+          this.updateSelected(this.avatars[0], isFirstLoad);
+        }
         this.loading = false;
       });
     },
 
-    updateSelected(event) {
+    updateSelected(event, isFirstLoad = false) {
       if (
         !this.avatarSelected.id ||
         (this.avatarSelected.id &&
@@ -123,16 +144,18 @@ export default {
           !this.loading)
       ) {
         this.loading = true;
-        this.$router.push("/avatar/" + event.id);
+        if (!isFirstLoad) {
+          this.$router.push("/avatar/" + event.id).catch((err) => {});
+        }
       }
     },
 
     selectCurrent(event) {
-      console.log("event = ", event);
       this.avatarSelected = {};
       self = this;
       setTimeout(function () {
-        self.avatarSelected = event;
+        self.avatarSelected =
+          self.avatars[self.avatars.findIndex((e) => e.id == event.id)];
         self.loading = false;
       });
     },
@@ -146,15 +169,13 @@ export default {
       bus.$emit("OpenAvatarForm", data);
     },
 
-    openCanva(){
-      console.log('open')
-      UIkit.offcanvas($('#offcanvas')).show();
+    openCanva() {
+      UIkit.offcanvas($("#offcanvas")).show();
     },
 
-    closeCanva(){
-      UIkit.offcanvas($('#offcanvas')).hide();
-    }
-
+    closeCanva() {
+      UIkit.offcanvas($("#offcanvas")).hide();
+    },
   },
 };
 </script>

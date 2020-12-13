@@ -1,9 +1,10 @@
 <template>
   <div id="modal-app" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <!-- Avatar forms -->
       <avatar-form
         v-if="formCategory == 'avatar'"
-        :form="{ name: form.name }"
+        :form="form"
         :action="formAction"
       ></avatar-form>
     </div>
@@ -17,12 +18,10 @@ import { bus } from "../../app";
 export default {
   components: { AvatarForm },
 
-  props: {
-    
-  },
+  props: {},
 
   data: () => ({
-      form: Object,
+    form: Object,
     formAction: String,
     formCategory: String,
   }),
@@ -40,9 +39,9 @@ export default {
 
   methods: {
     openForm(data) {
-      console.log(data);
       this.formAction = data.action;
-      this.form = data.form;
+      this.form = Object.assign({}, data.form);
+      this.form.user_id = parseInt(CurrentUserId);
       this.formCategory = data.category;
       this.openModal();
     },
