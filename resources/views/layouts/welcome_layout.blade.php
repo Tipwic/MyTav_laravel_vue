@@ -27,7 +27,7 @@
 
 <body class="antialiased">
 
-    <nav class="uk-margin uk-navbar uk-margin-remove-bottom uk-background-secondary uk-light" uk-navbar="">
+    <nav class="uk-margin uk-navbar uk-background-secondary uk-light" uk-navbar="">
         <div class="uk-navbar-left">
 
             <ul class="uk-navbar-nav">
@@ -47,7 +47,7 @@
         </div>
     </nav>
 
-    <main uk-height-viewport="offset-top: true; offset-bottom: true">
+    <main uk-height-viewport="offset-top: true; offset-bottom: true" class="uk-container">
         @yield('content')
     </main>
 

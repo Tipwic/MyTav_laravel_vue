@@ -24,7 +24,7 @@
         <v-header></v-header>
         <v-aside_nav></v-aside_nav>
         <v-modal></v-modal>
-        <main uk-height-viewport="offset-top: true; offset-bottom: true">
+        <main uk-height-viewport="offset-top: true; offset-bottom: true" class="uk-padding">
 
             <div class="uk-container uk-margin-small-top">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

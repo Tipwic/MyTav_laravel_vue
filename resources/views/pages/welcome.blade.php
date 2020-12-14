@@ -3,9 +3,10 @@
 @section('content')
 
 
-  <div class="uk-background-contain uk-background-muted uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" style="background-color: white;">
-    <img src="{{ asset('images/fond.jpg') }}" alt="" style="height: 100%;">
-  </div>
+<div class="uk-background-contain uk-background-muted uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-margin-bottom" style="background-color: white;">
+  <img src="{{ asset('images/fond.jpg') }}" alt="" style="height: 100%;">
+</div>
+
 
 <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
   <!--~~~-->
@@ -56,7 +57,7 @@
       <p>.....</p>
     </div>
   </div>
-</div>
+
 </div>
 
 @endsection
