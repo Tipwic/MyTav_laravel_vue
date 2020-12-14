@@ -1,7 +1,7 @@
 <template>
   <div>
     <spin v-if="loading" />
-    <ErrorForm v-if="error"  :error="error" :data="dataError"/>
+    <ErrorForm v-if="error" :error="error" :data="dataError" />
 
     <div v-if="action != 'delete'">
       <div class="uk-margin">
@@ -87,13 +87,10 @@ export default {
             if (res.data.avatar) {
               bus.$emit("closeModal");
               bus.$emit("onCreatedAvatar", res.data.avatar);
-              UIkit.notification(
-                "<span uk-icon='icon: check'></span>" + res.data.message,
-                "success"
-              );
-            } else{
+              this.showNotification(res.data.message)
+            } else {
               this.error = true;
-              this.dataError = res.data.error ? res.data.error : {};            
+              this.dataError = res.data.error ? res.data.error : {};
             }
             this.loading = false;
           });
@@ -104,7 +101,7 @@ export default {
       if (!this.loading) {
         this.loading = true;
         axios
-          .put("/api/avatars/" + this.form.id, this.form, {
+          .put(`/api/avatars/${this.form.id}`, this.form, {
             headers: {
               "Content-type": "application/json",
             },
@@ -113,13 +110,10 @@ export default {
             if (res.data.avatar) {
               bus.$emit("closeModal");
               bus.$emit("onUpdatedAvatar", res.data.avatar);
-              UIkit.notification(
-                "<span uk-icon='icon: check'></span>" + res.data.message,
-                "success"
-              );
+               this.showNotification(res.data.message)
             } else {
               this.error = true;
-              this.dataError = res.data.error ? res.data.error : {};      
+              this.dataError = res.data.error ? res.data.error : {};
             }
             this.loading = false;
           });
@@ -130,7 +124,7 @@ export default {
       if (!this.loading) {
         this.loading = true;
         axios
-          .delete("/api/avatars/" + this.form.id, {
+          .delete(`/api/avatars/${this.form.id}`, {
             headers: {
               "Content-type": "application/json",
             },
@@ -139,17 +133,21 @@ export default {
             if (res.data) {
               bus.$emit("closeModal");
               bus.$emit("onDeletedAvatar", this.form.id);
-              UIkit.notification(
-                "<span uk-icon='icon: check'></span>" + res.data.message,
-                "success"
-              );
+              this.showNotification(res.data.message);
             } else {
               this.error = true;
-              this.dataError = res.data.error ? res.data.error : {};      
+              this.dataError = res.data.error ? res.data.error : {};
             }
             this.loading = false;
           });
       }
+    },
+
+    showNotification(mess) {
+      UIkit.notification(
+        `<span uk-icon='icon: check'></span>${mess}`,
+        "success"
+      );
     },
   },
 };

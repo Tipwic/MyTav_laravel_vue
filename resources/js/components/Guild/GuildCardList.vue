@@ -3,7 +3,7 @@
       <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
           <div class="uk-width-auto">
-            <img width="60" height="60" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/BT_logo.svg/1280px-BT_logo.svg.png">
+            <img width="60" height="60" :src="'../../../../public/assets/images/avatar.jpg'" alt="">
           </div>
           <div class="uk-width-expand">
             <h3 class="uk-card-title uk-margin-remove-bottom">{{ guild.name }}</h3>

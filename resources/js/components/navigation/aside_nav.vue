@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     loadAvatars(isFirstLoad = false) {
-      axios.get("/api/userAvatar/" + CurrentUserId).then((res) => {
+      axios.get(`/api/userAvatar/${CurrentUserId}`).then((res) => {
         this.avatars = [...res.data.avatars];
         if (this.avatars.length == 0) {
           this.$router.push("/home").catch((err) => {});
@@ -145,7 +145,7 @@ export default {
       ) {
         this.loading = true;
         if (!isFirstLoad) {
-          this.$router.push("/avatar/" + event.id).catch((err) => {});
+          this.$router.push(`/avatar/${event.id}`).catch((err) => {});
         }
       }
     },

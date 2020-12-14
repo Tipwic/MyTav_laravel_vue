@@ -8,6 +8,7 @@ import Comunity from "./views/Comunity";
 import Guild from "./views/Guild";
 import Avatar from "./views/Avatar";
 import Game from "./views/Game";
+import Article from "./views/Article";
 
 const routes = [
     {
@@ -29,6 +30,10 @@ const routes = [
     {
         path: "/game/:id",
         component: Game
+    },
+    {
+        path: "/article",
+        component: Article
     },
    {
         path: "/*",

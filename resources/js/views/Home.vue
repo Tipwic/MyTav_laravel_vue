@@ -7,7 +7,7 @@
       >
         <div class="uk-card-media-left uk-cover-container">
           <img
-            src="https://getuikit.com/docs/images/light.jpg"
+            :src="'../../../../public/assets/images/fond.jpg'"
             alt=""
             hidden
             uk-cover
@@ -27,13 +27,11 @@
         </div>
       </div>
     </div>
-    <button
-      v-if="noUserAvatar"
-      class="uk-button uk-button-primary uk-width-1-1 uk-button-small uk-margin-small-top"
-      v-on:click="OpenAvatarForm"
-    >
-      Créez votre premier avatar
-    </button>
+    <div v-if="noUserAvatar">
+      <a class="uk-button uk-button-text" v-on:click="OpenAvatarForm"
+        >Créez votre premier avatar</a
+      >
+    </div>
   </div>
 </template>
 

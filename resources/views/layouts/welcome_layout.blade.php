@@ -47,7 +47,7 @@
         </div>
     </nav>
 
-    <main class="py-4" uk-height-viewport="offset-top: true; offset-bottom: true">
+    <main uk-height-viewport="offset-top: true; offset-bottom: true">
         @yield('content')
     </main>
 

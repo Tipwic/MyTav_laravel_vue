@@ -23,45 +23,18 @@ export default {
   }),
 
   mounted() {
-    this.loadGame();
   },
 
   watch: {
-    $route(to, from) {
-      this.loadGame();
-    },
   },
 
   methods: {
     store() {
-      this.loading = true;
-      axios
-        .post("/api/games", this.form, {
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-        .then((res) => {
-          if (res.data.status) {
-            this.$router.push("/game/" + res.data.post.id);
-          } else {
-            setTimeout(() => {
-              this.loading = false;
-            }, 300);
-            this.error = true;
-          }
-        });
     },
 
     loadGame() {
-      (this.loading = true),
-        axios.get("/api/avatars/" + this.$route.params.id).then((res) => {
-          this.avatar = res.data;
-          this.loading = false;
-        });
     },
     onLoadedGame() {
-      this.$emit("onLoaded", this.game);
     },
   },
 };

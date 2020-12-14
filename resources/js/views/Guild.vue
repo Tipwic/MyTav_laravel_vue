@@ -23,45 +23,20 @@ export default {
   }),
 
   mounted() {
-    this.loadGuild();
   },
 
   watch: {
     $route(to, from) {
-      this.loadGuild();
     },
   },
 
   methods: {
     store() {
-      this.loading = true;
-      axios
-        .post("/api/guilds", this.form, {
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-        .then((res) => {
-          if (res.data.status) {
-            this.$router.push("/guild/" + res.data.post.id);
-          } else {
-            setTimeout(() => {
-              this.loading = false;
-            }, 300);
-            this.error = true;
-          }
-        });
     },
 
     loadGuild() {
-      (this.loading = true),
-        axios.get("/api/guilds/" + this.$route.params.id).then((res) => {
-          this.guild = res.data;
-          this.loading = false;
-        });
     },
     onLoadedGuild() {
-      this.$emit("onLoaded", this.guild);
     },
   },
 };

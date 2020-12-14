@@ -6,7 +6,12 @@
         <div class="uk-card-header">
           <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-auto">
-              <img class="uk-border-circle" width="40" height="40" :src="'.​/images/avatar.png'"/>
+              <img
+                class="uk-border-circle"
+                width="40"
+                height="40"
+                :src="'../../../../public/assets/images/fond.jpg'" alt=""
+              />
             </div>
             <div class="uk-width-expand">
               <h3 class="uk-card-title uk-margin-remove-bottom">
@@ -25,18 +30,18 @@
           </p>
         </div>
         <div class="uk-card-footer">
-          <button
-            class="uk-button uk-button-primary uk-button-small"
-            v-on:click="OpenAvatarForm"
-          >
-            Modifier
-          </button>
-          <button
-            class="uk-button uk-button-danger uk-button-small"
-            v-on:click="OpenDeleteForm"
-          >
-            Supprimer
-          </button>
+          <div class="uk-grid-small uk-child-width-auto" uk-grid>
+            <div>
+              <a class="uk-button uk-button-text" v-on:click="OpenAvatarForm"
+                >Modifier</a
+              >
+            </div>
+            <div>
+              <a class="uk-button uk-button-text" v-on:click="OpenDeleteForm"
+                >Supprimer</a
+              >
+            </div>
+          </div>
         </div>
       </div>
 
@@ -52,7 +57,7 @@
 import Spin from "../components/utils/Spin";
 import axios from "axios";
 import { bus } from "../app";
-import Article from "../components/Article/article";
+import Article from "../components/Article/ArticlePreview";
 
 export default {
   components: { Spin, Article },
@@ -84,12 +89,12 @@ export default {
 
   methods: {
     loadAvatar() {
-      (this.loading = true),
-        axios.get("/api/avatars/" + this.$route.params.id).then((res) => {
-          this.avatar = res.data.avatar;
-          this.onLoadedAvatar();
-          this.loading = false;
-        });
+      this.loading = true;
+      axios.get(`/api/avatars/${this.$route.params.id}`).then((res) => {
+        this.avatar = res.data.avatar;
+        this.onLoadedAvatar();
+        this.loading = false;
+      });
     },
 
     OpenAvatarForm() {
